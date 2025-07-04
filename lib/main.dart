@@ -1,4 +1,4 @@
-import 'package:fair_travel/welcome_page.dart';
+import 'package:fair_travel/pages/welcome_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
