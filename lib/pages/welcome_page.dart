@@ -25,6 +25,7 @@ class _WelcomePageState extends State<WelcomePage> {
       body: PageView.builder(
         scrollDirection: Axis.vertical,
         itemCount: images.length,
+        physics: const BouncingScrollPhysics(parent: PageScrollPhysics()),
         itemBuilder: (context, index) {
           return Container(
             width: double.maxFinite,
