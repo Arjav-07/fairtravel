@@ -1,5 +1,6 @@
 import 'package:fair_travel/widgets/app_large_text.dart';
 import 'package:fair_travel/widgets/app_text.dart';
+import 'package:fair_travel/widgets/themes.dart';
 import 'package:flutter/material.dart';
 
 class WelcomePage extends StatefulWidget {
@@ -39,14 +40,16 @@ class _WelcomePageState extends State<WelcomePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       AppLargeText(text: "Trips"),
+
                       AppText(text: "Mountain", size: 30),
+                      SizedBox(height: 20),
                       Container(
                         width: 250,
                         child: AppText(
                           text:
                               "Mountain hikes give you an incredible sense of freedom along with endurance tests.",
                           size: 14,
-                          color: Colors.black54,
+                          color: AppColors.textColor2,
                         ),
                       ),
                     ],
