@@ -1,3 +1,5 @@
+import 'package:fair_travel/cubit/app_cubit.dart';
+import 'package:fair_travel/pages/nav_pages/detail_page.dart';
 import 'package:fair_travel/pages/nav_pages/mainpage.dart';
 import 'package:fair_travel/pages/welcome_page.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +19,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const MainPage(),
+      home: const BlocProvider<AppCubits>(
+        create:(context)=>AppCubits(),
+        child: ,
+      ),
     );
   }
 }

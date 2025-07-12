@@ -1,5 +1,5 @@
-import 'package:fair_travel/pages/nav_pages/home_page.dart';
 import 'package:flutter/material.dart';
+import 'package:fair_travel/pages/nav_pages/home_page.dart';
 import 'package:fair_travel/pages/nav_pages/bar_item_page.dart';
 import 'package:fair_travel/pages/nav_pages/search_page.dart';
 import 'package:fair_travel/pages/nav_pages/my_page.dart';
@@ -11,8 +11,8 @@ class MainPage extends StatefulWidget {
   State<MainPage> createState() => _MainPageState();
 }
 
-class _MainPageState extends State<MainPage> {
-  int currentIndex = 0; //
+class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
+  int currentIndex = 0;
 
   final List<Widget> pages = [
     HomePage(),
@@ -20,6 +20,15 @@ class _MainPageState extends State<MainPage> {
     SearchPage(),
     MyPage(),
   ];
+
+  final List<IconData> icons = [
+    Icons.apps,
+    Icons.bar_chart,
+    Icons.search,
+    Icons.person,
+  ];
+
+  final List<String> labels = ["Home", "Bar", "Search", "Profile"];
 
   void onTap(int index) {
     setState(() {
@@ -30,28 +39,78 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: pages[currentIndex], //
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        unselectedFontSize: 0,
-        selectedFontSize: 0,
-        onTap: onTap,
-        currentIndex: currentIndex,
-        backgroundColor: Colors.white,
-        selectedItemColor: Colors.black,
-        unselectedItemColor: Colors.grey.withOpacity(0.5),
-        showUnselectedLabels: false,
-        showSelectedLabels: false,
-        elevation: 0.0,
-        items: const [
-          BottomNavigationBarItem(label: "Home", icon: Icon(Icons.apps)),
-          BottomNavigationBarItem(label: "Bar", icon: Icon(Icons.bar_chart)),
-          BottomNavigationBarItem(label: "Search", icon: Icon(Icons.search)),
-          BottomNavigationBarItem(
-            label: "My Profile",
-            icon: Icon(Icons.person),
+      backgroundColor: Colors.white,
+      body: pages[currentIndex],
+
+      // Rounded, elevated, smooth bottom nav bar
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
+        child: PhysicalModel(
+          color: Colors.white,
+          elevation: 10,
+          borderRadius: BorderRadius.circular(30),
+          shadowColor: Colors.black.withOpacity(0.25),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(30),
+            child: Container(
+              color: Colors.white,
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: List.generate(icons.length, (index) {
+                  final bool isSelected = index == currentIndex;
+
+                  return GestureDetector(
+                    onTap: () => onTap(index),
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 300),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 8,
+                      ),
+                      decoration: BoxDecoration(
+                        color: isSelected
+                            ? Colors.grey[800]
+                            : Colors.transparent,
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      child: AnimatedSize(
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.easeInOut,
+                        child: Row(
+                          children: [
+                            Icon(
+                              icons[index],
+                              color: isSelected ? Colors.white : Colors.grey,
+                              size: 24,
+                            ),
+                            AnimatedSwitcher(
+                              duration: const Duration(milliseconds: 300),
+                              child: isSelected
+                                  ? Padding(
+                                      key: ValueKey(index),
+                                      padding: const EdgeInsets.only(left: 8),
+                                      child: Text(
+                                        labels[index],
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    )
+                                  : const SizedBox.shrink(),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                }),
+              ),
+            ),
           ),
-        ],
+        ),
       ),
     );
   }
