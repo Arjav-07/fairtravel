@@ -61,6 +61,8 @@ class _WelcomePageState extends State<WelcomePage> {
                           ),
                         ),
                         const SizedBox(height: 40),
+
+                        /// 🔥 Tap button to trigger Cubit data fetch
                         GestureDetector(
                           onTap: () {
                             BlocProvider.of<AppCubits>(context).getData();

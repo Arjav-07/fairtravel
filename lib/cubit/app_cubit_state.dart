@@ -3,27 +3,35 @@ import 'package:fair_travel/model/data_model.dart';
 
 abstract class CubitStates extends Equatable {
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => []; // Default empty props
 }
 
-class InitialState extends CubitStates {}
+// Example of a default or loading state
+class InitialState extends CubitStates {
+  final int x;
 
-class WelcomeState extends CubitStates {}
+  InitialState({this.x = 0});
 
-class LoadingState extends CubitStates {}
+  @override
+  List<Object> get props => [];
+}
+
+class WelcomeState extends CubitStates {
+  @override
+  List<Object> get props => [];
+}
+
+// Shown when app starts
+class LoadingState extends CubitStates {
+  @override
+  List<Object> get props => [];
+}
 
 class LoadedState extends CubitStates {
-  final List<DataModel> places;
   LoadedState(this.places);
-
+  final List<DataModel> places;
   @override
   List<Object> get props => [places];
 }
 
-class ErrorState extends CubitStates {
-  final String message;
-  ErrorState(this.message);
-
-  @override
-  List<Object> get props => [message];
-}
+// Add other states like LoadedState, DetailState, etc., as needed
