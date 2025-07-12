@@ -1,8 +1,10 @@
+import 'package:fair_travel/cubit/app_cubit.dart';
 import 'package:fair_travel/widgets/app_large_text.dart';
 import 'package:fair_travel/widgets/app_text.dart';
 import 'package:fair_travel/widgets/responsive_button.dart';
 import 'package:fair_travel/widgets/themes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({Key? key}) : super(key: key);
@@ -48,8 +50,7 @@ class _WelcomePageState extends State<WelcomePage> {
                       children: [
                         AppLargeText(text: "Trips"),
                         AppText(text: text[index], size: 30),
-                        SizedBox(height: 20),
-
+                        const SizedBox(height: 20),
                         Container(
                           width: 250,
                           child: AppText(
@@ -59,8 +60,13 @@ class _WelcomePageState extends State<WelcomePage> {
                             color: AppColors.textColor2,
                           ),
                         ),
-                        SizedBox(height: 40),
-                        ResponsiveButton(width: 100),
+                        const SizedBox(height: 40),
+                        GestureDetector(
+                          onTap: () {
+                            BlocProvider.of<AppCubits>(context).getData();
+                          },
+                          child: ResponsiveButton(isResponsive: true),
+                        ),
                       ],
                     ),
                     Column(
