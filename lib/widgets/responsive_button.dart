@@ -15,27 +15,29 @@ class ResponsiveButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: isResponsive == true ? double.infinity : width,
+    return SizedBox(
+      width: 180,
       height: 60,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: AppColors.mainColor,
-      ),
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Row(
-        mainAxisAlignment: isResponsive
-            ? MainAxisAlignment.spaceBetween
-            : MainAxisAlignment.center,
-        children: [
-          AppText(text: "Book Trip Now", color: Colors.white),
-          if (isResponsive)
-            const Icon(
-              CupertinoIcons.arrow_right,
-              size: 30,
-              color: Colors.white,
-            ),
-        ],
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: AppColors.mainColor,
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Row(
+          mainAxisAlignment: isResponsive
+              ? MainAxisAlignment.spaceBetween
+              : MainAxisAlignment.center,
+          children: [
+            AppText(text: "Book Trip Now", color: Colors.white),
+            if (isResponsive)
+              const Icon(
+                CupertinoIcons.arrow_right,
+                size: 30,
+                color: Colors.white,
+              ),
+          ],
+        ),
       ),
     );
   }

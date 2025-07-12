@@ -1,0 +1,54 @@
+[
+  {
+    "id": 1,
+    "name": "British Columbia",
+    "description": "This 134 kilometers Highway 99 trail gives you a taste of the Canada mountains, from Horseshoe Bay in the north of Vancouver to Pemberton. The highway takes you via the coast of the Pacific all the way to Howe Sound before arriving at the Turning island. It gives you a mouthwatering opportunity for sightseeing without having the need to walk off road.",
+    "price": 1276,
+    "stars": 4,
+    "people": 5,
+    "selected_people": 5,
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Everest_North_Face_toward_Base_Camp_Tibet_Luca_Galuzzi_2006.jpg/1200px-Everest_North_Face_toward_Base_Camp_Tibet_Luca_Galuzzi_2006.jpg",
+    "location": "Canada, British Columbia",
+    "created_at": "2021-11-17T10:09:08.000000Z",
+    "updated_at": "2021-11-17T10:23:07.000000Z"
+  },
+  {
+    "id": 3,
+    "name": "Moraine Lake",
+    "description": "Moraine Lake is yet another astonishing geographical location that you cannot afford to miss out on if you’re traveling along the Icefields Parkway. Moraine Lake is located in the Banff and is a promising epitome of ecstatic blue waters. This lake is fed from the glaciers and is gifted its startling blue color from the silicon deposits from the melting glaciers.",
+    "price": 3456,
+    "stars": 3,
+    "people": 5,
+    "selected_people": 4,
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Everest_North_Face_toward_Base_Camp_Tibet_Luca_Galuzzi_2006.jpg/1200px-Everest_North_Face_toward_Base_Camp_Tibet_Luca_Galuzzi_2006.jpg",
+    "location": "Moraine Lake, Alberta",
+    "created_at": "2021-11-17T10:16:31.000000Z",
+    "updated_at": "2021-11-17T10:20:00.000000Z"
+  },
+  {
+    "id": 11,
+    "name": "Sunset Canyon",
+    "description": "Sunset Canyon offers a mesmerizing view of golden light cascading over red sandstone cliffs. Ideal for evening hikes, this destination is a serene getaway for nature lovers and photographers alike.",
+    "price": 2180,
+    "stars": 4,
+    "people": 3,
+    "selected_people": 2,
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Everest_North_Face_toward_Base_Camp_Tibet_Luca_Galuzzi_2006.jpg/1200px-Everest_North_Face_toward_Base_Camp_Tibet_Luca_Galuzzi_2006.jpg",
+    "location": "Arizona, USA",
+    "created_at": "2022-03-10T12:45:00.000000Z",
+    "updated_at": "2022-03-12T08:21:00.000000Z"
+  },
+  {
+    "id": 12,
+    "name": "Crystal Beach",
+    "description": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Everest_North_Face_toward_Base_Camp_Tibet_Luca_Galuzzi_2006.jpg/1200px-Everest_North_Face_toward_Base_Camp_Tibet_Luca_Galuzzi_2006.jpg",
+    "price": 1630,
+    "stars": 5,
+    "people": 4,
+    "selected_people": 3,
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Everest_North_Face_toward_Base_Camp_Tibet_Luca_Galuzzi_2006.jpg/1200px-Everest_North_Face_toward_Base_Camp_Tibet_Luca_Galuzzi_2006.jpg",
+    "location": "Bahamas",
+    "created_at": "2022-04-05T14:20:00.000000Z",
+    "updated_at": "2022-04-07T16:05:00.000000Z"
+  }
+]
