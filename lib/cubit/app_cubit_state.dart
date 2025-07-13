@@ -6,11 +6,18 @@ abstract class CubitStates extends Equatable {
   List<Object?> get props => [];
 }
 
-class InitialState extends CubitStates {}
+class InitialState extends CubitStates {
+  @override
+  List<Object> get props => [];
+}
 
-class WelcomeState extends CubitStates {}
+class WelcomeState extends CubitStates {
+  List<Object> get props => [];
+}
 
-class LoadingState extends CubitStates {}
+class LoadingState extends CubitStates {
+  List<Object> get props => [];
+}
 
 class LoadedState extends CubitStates {
   final List<DataModel> places;
@@ -20,10 +27,18 @@ class LoadedState extends CubitStates {
   List<Object> get props => [places];
 }
 
-class ErrorState extends CubitStates {
-  final String message;
-  ErrorState(this.message);
+class DetailState extends CubitStates {
+  final DataModel place;
+  DetailState(this.place);
 
   @override
-  List<Object> get props => [message];
+  List<Object> get props => [place];
+}
+
+class ErrorState extends CubitStates {
+  final String places;
+  ErrorState(this.places);
+
+  @override
+  List<Object> get props => [places];
 }

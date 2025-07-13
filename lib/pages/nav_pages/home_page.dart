@@ -1,7 +1,13 @@
+import 'package:fair_travel/cubit/app_cubit.dart';
+import 'package:fair_travel/cubit/app_cubit_state.dart';
 import 'package:flutter/material.dart';
 import 'package:fair_travel/widgets/app_large_text.dart';
 import 'package:fair_travel/widgets/app_text.dart';
 import 'package:fair_travel/widgets/themes.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+// Constant padding
+const EdgeInsets kSidePadding = EdgeInsets.symmetric(horizontal: 20);
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -25,7 +31,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
 
-    // Preload images after the first frame is rendered
     WidgetsBinding.instance.addPostFrameCallback((_) {
       for (var i = 1; i <= 4; i++) {
         precacheImage(AssetImage("assets/images/$i.png"), context);
@@ -40,119 +45,137 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Top Menu Bar
-          Padding(
-            padding: const EdgeInsets.only(top: 70, left: 20, right: 20),
-            child: Row(
+      body: BlocBuilder<AppCubits, CubitStates>(
+        builder: (context, state) {
+          if (state is LoadedState) {
+            var info = state.places;
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Icon(Icons.menu, size: 30, color: Colors.black54),
-                const Spacer(),
-                Container(
-                  width: 50,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: Colors.grey.withOpacity(0.5),
-                    borderRadius: BorderRadius.circular(10),
+                // Top Menu Bar
+                Padding(
+                  padding: const EdgeInsets.only(top: 70).add(kSidePadding),
+                  child: Row(
+                    children: [
+                      const Icon(Icons.menu, size: 30, color: Colors.black54),
+                      const Spacer(),
+                      Container(
+                        width: 50,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: Colors.grey.withOpacity(0.5),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 30),
+
+                const Padding(
+                  padding: EdgeInsets.only(left: 20),
+                  child: AppLargeText(text: "Discover"),
+                ),
+
+                const SizedBox(height: 20),
+
+                // Tab Bar
+                Material(
+                  color: Colors.transparent,
+                  child: TabBar(
+                    controller: _tabController,
+                    isScrollable: true,
+                    labelPadding: const EdgeInsets.symmetric(horizontal: 20),
+                    labelColor: Colors.black,
+                    unselectedLabelColor: Colors.grey,
+                    indicatorSize: TabBarIndicatorSize.label,
+                    indicatorColor: Colors.transparent,
+                    indicator: const CircleTabIndicator(
+                      color: AppColors.mainColor,
+                      radius: 4,
+                    ),
+                    tabs: const [
+                      Tab(text: "Places"),
+                      Tab(text: "Inspirational"),
+                      Tab(text: "Emotions"),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 20),
+
+                // Tab Content
+                SizedBox(
+                  height: 300,
+                  child: TabBarView(
+                    controller: _tabController,
+                    children: [
+                      RepaintBoundary(child: ImageList(info: info)),
+                      const Center(child: Text("There")),
+                      const Center(child: Text("Bye")),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 30),
+
+                // Explore More
+                const Padding(
+                  padding: kSidePadding,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      AppLargeText(text: "Explore More", size: 22),
+                      AppText(text: "See all", color: AppColors.textColor1),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 10),
+
+                SizedBox(
+                  height: 120,
+                  child: RepaintBoundary(
+                    child: ExploreMoreList(images: images),
                   ),
                 ),
               ],
-            ),
-          ),
-
-          const SizedBox(height: 30),
-          const Padding(
-            padding: EdgeInsets.only(left: 20),
-            child: AppLargeText(text: "Discover"),
-          ),
-
-          const SizedBox(height: 20),
-
-          // Tab Bar
-          Material(
-            color: Colors.transparent,
-            child: TabBar(
-              controller: _tabController,
-              isScrollable: true,
-              labelPadding: const EdgeInsets.symmetric(horizontal: 20),
-              labelColor: Colors.black,
-              unselectedLabelColor: Colors.grey,
-              indicatorSize: TabBarIndicatorSize.label,
-              indicatorColor: Colors.transparent,
-              indicator: const CircleTabIndicator(
-                color: AppColors.mainColor,
-                radius: 4,
-              ),
-              tabs: const [
-                Tab(text: "Places"),
-                Tab(text: "Inspirational"),
-                Tab(text: "Emotions"),
-              ],
-            ),
-          ),
-
-          const SizedBox(height: 20),
-
-          // Tab Content with isolated widget
-          SizedBox(
-            height: 300,
-            child: TabBarView(
-              controller: _tabController,
-              children: const [
-                RepaintBoundary(child: ImageList()),
-                Center(child: Text("There")),
-                Center(child: Text("Bye")),
-              ],
-            ),
-          ),
-
-          const SizedBox(height: 30),
-
-          // Explore More Header
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                AppLargeText(text: "Explore More", size: 22),
-                AppText(text: "See all", color: AppColors.textColor1),
-              ],
-            ),
-          ),
-
-          const SizedBox(height: 10),
-
-          // Explore More List
-          SizedBox(
-            height: 120,
-            child: RepaintBoundary(child: ExploreMoreList(images: images)),
-          ),
-        ],
+            );
+          } else {
+            return const Center(child: CircularProgressIndicator());
+          }
+        },
       ),
     );
   }
 }
 
-// ImageList Widget
+// ---------- IMAGE LIST ----------
+
 class ImageList extends StatelessWidget {
-  const ImageList({super.key});
+  final List<dynamic> info; // Use your actual model type if defined
+
+  const ImageList({super.key, required this.info});
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      itemCount: info.length,
       scrollDirection: Axis.horizontal,
-      itemCount: 4,
       padding: const EdgeInsets.only(left: 20),
       itemBuilder: (context, index) {
+        final String imageUrl = info[index].img.startsWith('http')
+            ? info[index].img
+            : "https://api.jsonbin.io/v3/b/687290ab6063391d31ac42dc${info[index].img}";
+
         return Container(
           margin: const EdgeInsets.only(right: 15),
           width: 200,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             image: DecorationImage(
-              image: AssetImage("assets/images/${index + 1}.png"),
+              image: NetworkImage(imageUrl),
               fit: BoxFit.cover,
             ),
           ),
@@ -162,7 +185,8 @@ class ImageList extends StatelessWidget {
   }
 }
 
-//  ExploreMoreList Widget
+// ---------- EXPLORE MORE ----------
+
 class ExploreMoreList extends StatelessWidget {
   final Map<String, String> images;
   const ExploreMoreList({super.key, required this.images});
@@ -202,7 +226,8 @@ class ExploreMoreList extends StatelessWidget {
   }
 }
 
-//  Custom Circle Tab Indicator
+// ---------- CUSTOM TAB INDICATOR ----------
+
 class CircleTabIndicator extends Decoration {
   final Color color;
   final double radius;

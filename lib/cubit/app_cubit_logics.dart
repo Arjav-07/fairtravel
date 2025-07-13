@@ -1,6 +1,5 @@
 import 'package:fair_travel/cubit/app_cubit.dart';
 import 'package:fair_travel/cubit/app_cubit_state.dart';
-import 'package:fair_travel/pages/nav_pages/home_page.dart';
 import 'package:fair_travel/pages/nav_pages/mainpage.dart';
 import 'package:fair_travel/pages/welcome_page.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +23,7 @@ class AppCubitLogics extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           }
           if (state is ErrorState) {
-            return Center(child: Text("Error: ${state.message}"));
+            return Center(child: Text("Error: ${state.places}"));
           }
           return const Center(child: Text("Unknown state"));
         },
