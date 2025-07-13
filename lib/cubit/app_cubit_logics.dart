@@ -1,5 +1,6 @@
 import 'package:fair_travel/cubit/app_cubit.dart';
 import 'package:fair_travel/cubit/app_cubit_state.dart';
+import 'package:fair_travel/pages/nav_pages/detail_page.dart';
 import 'package:fair_travel/pages/nav_pages/mainpage.dart';
 import 'package:fair_travel/pages/welcome_page.dart';
 import 'package:flutter/material.dart';
@@ -15,17 +16,17 @@ class AppCubitLogics extends StatelessWidget {
         builder: (context, state) {
           if (state is WelcomeState) {
             return const WelcomePage();
-          }
-          if (state is LoadedState) {
+          } else if (state is LoadedState) {
             return const MainPage();
-          }
-          if (state is LoadingState) {
+          } else if (state is DetailState) {
+            return const DetailPage();
+          } else if (state is LoadingState) {
             return const Center(child: CircularProgressIndicator());
-          }
-          if (state is ErrorState) {
+          } else if (state is ErrorState) {
             return Center(child: Text("Error: ${state.places}"));
+          } else {
+            return const Center(child: Text("Unknown state"));
           }
-          return const Center(child: Text("Unknown state"));
         },
       ),
     );

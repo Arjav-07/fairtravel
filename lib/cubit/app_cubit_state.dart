@@ -6,18 +6,11 @@ abstract class CubitStates extends Equatable {
   List<Object?> get props => [];
 }
 
-class InitialState extends CubitStates {
-  @override
-  List<Object> get props => [];
-}
+class InitialState extends CubitStates {}
 
-class WelcomeState extends CubitStates {
-  List<Object> get props => [];
-}
+class WelcomeState extends CubitStates {}
 
-class LoadingState extends CubitStates {
-  List<Object> get props => [];
-}
+class LoadingState extends CubitStates {}
 
 class LoadedState extends CubitStates {
   final List<DataModel> places;

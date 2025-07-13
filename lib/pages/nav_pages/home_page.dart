@@ -32,9 +32,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     _tabController = TabController(length: 3, vsync: this);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      for (var i = 1; i <= 4; i++) {
-        precacheImage(AssetImage("assets/images/$i.png"), context);
-      }
       for (var image in images.keys) {
         precacheImage(AssetImage("assets/images/$image"), context);
       }
@@ -52,7 +49,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Top Menu Bar
                 Padding(
                   padding: const EdgeInsets.only(top: 70).add(kSidePadding),
                   child: Row(
@@ -70,17 +66,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     ],
                   ),
                 ),
-
                 const SizedBox(height: 30),
-
                 const Padding(
                   padding: EdgeInsets.only(left: 20),
                   child: AppLargeText(text: "Discover"),
                 ),
-
                 const SizedBox(height: 20),
-
-                // Tab Bar
                 Material(
                   color: Colors.transparent,
                   child: TabBar(
@@ -102,10 +93,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     ],
                   ),
                 ),
-
                 const SizedBox(height: 20),
-
-                // Tab Content
                 SizedBox(
                   height: 300,
                   child: TabBarView(
@@ -117,10 +105,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     ],
                   ),
                 ),
-
                 const SizedBox(height: 30),
-
-                // Explore More
                 const Padding(
                   padding: kSidePadding,
                   child: Row(
@@ -131,9 +116,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     ],
                   ),
                 ),
-
                 const SizedBox(height: 10),
-
                 SizedBox(
                   height: 120,
                   child: RepaintBoundary(
@@ -151,10 +134,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   }
 }
 
-// ---------- IMAGE LIST ----------
-
 class ImageList extends StatelessWidget {
-  final List<dynamic> info; // Use your actual model type if defined
+  final List<dynamic> info;
 
   const ImageList({super.key, required this.info});
 
@@ -165,18 +146,22 @@ class ImageList extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       padding: const EdgeInsets.only(left: 20),
       itemBuilder: (context, index) {
-        final String imageUrl = info[index].img.startsWith('http')
-            ? info[index].img
-            : "https://api.jsonbin.io/v3/b/687290ab6063391d31ac42dc${info[index].img}";
+        final imageUrl = info[index].img;
 
-        return Container(
-          margin: const EdgeInsets.only(right: 15),
-          width: 200,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            image: DecorationImage(
-              image: NetworkImage(imageUrl),
-              fit: BoxFit.cover,
+        return GestureDetector(
+          onTap: () {
+            BlocProvider.of<AppCubits>(context).detailPage(info[index]);
+          },
+          child: Container(
+            margin: const EdgeInsets.only(right: 15, top: 10),
+            width: 200,
+            height: 300,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              image: DecorationImage(
+                image: NetworkImage(imageUrl),
+                fit: BoxFit.cover,
+              ),
             ),
           ),
         );
@@ -185,10 +170,9 @@ class ImageList extends StatelessWidget {
   }
 }
 
-// ---------- EXPLORE MORE ----------
-
 class ExploreMoreList extends StatelessWidget {
   final Map<String, String> images;
+
   const ExploreMoreList({super.key, required this.images});
 
   @override
@@ -202,14 +186,14 @@ class ExploreMoreList extends StatelessWidget {
         final label = images.values.elementAt(index);
 
         return Container(
-          margin: const EdgeInsets.only(right: 30),
+          margin: const EdgeInsets.only(right: 20),
           child: Column(
             children: [
               Container(
                 width: 80,
                 height: 80,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(15),
                   image: DecorationImage(
                     image: AssetImage("assets/images/$imageName"),
                     fit: BoxFit.cover,
@@ -225,8 +209,6 @@ class ExploreMoreList extends StatelessWidget {
     );
   }
 }
-
-// ---------- CUSTOM TAB INDICATOR ----------
 
 class CircleTabIndicator extends Decoration {
   final Color color;
