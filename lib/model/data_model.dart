@@ -1,5 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-
 class DataModel {
   String name;
   String img;
@@ -7,7 +5,7 @@ class DataModel {
   int people;
   int stars;
   String description;
-  String Location;
+  String location; // ✅ lowercase
 
   DataModel({
     required this.name,
@@ -16,7 +14,7 @@ class DataModel {
     required this.people,
     required this.stars,
     required this.description,
-    required this.Location,
+    required this.location, // ✅ lowercase
   });
 
   factory DataModel.fromJson(Map<String, dynamic> json) {
@@ -27,7 +25,7 @@ class DataModel {
       people: json["people"],
       stars: json["stars"],
       description: json["description"],
-      Location: json["location"],
+      location: json["location"], // ✅ match lowercase
     );
   }
 }

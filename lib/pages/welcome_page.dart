@@ -1,4 +1,5 @@
 import 'package:fair_travel/cubit/app_cubit.dart';
+import 'package:fair_travel/cubit/app_cubit_logics.dart';
 import 'package:fair_travel/widgets/app_large_text.dart';
 import 'package:fair_travel/widgets/app_text.dart';
 import 'package:fair_travel/widgets/responsive_button.dart';
@@ -19,6 +20,7 @@ class _WelcomePageState extends State<WelcomePage> {
     'assets/images/2.png',
     'assets/images/3.png',
   ];
+
   List text = ['Mountain', 'Sea', 'Forest'];
 
   @override
@@ -38,20 +40,20 @@ class _WelcomePageState extends State<WelcomePage> {
                 fit: BoxFit.cover,
               ),
             ),
-
             child: SafeArea(
               child: Container(
                 margin: const EdgeInsets.only(top: 50, left: 20, right: 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    /// LEFT COLUMN
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         AppLargeText(text: "Trips"),
                         AppText(text: text[index], size: 30),
                         const SizedBox(height: 20),
-                        Container(
+                        const SizedBox(
                           width: 250,
                           child: AppText(
                             text:
@@ -62,15 +64,22 @@ class _WelcomePageState extends State<WelcomePage> {
                         ),
                         const SizedBox(height: 40),
 
-                        /// 🔥 Tap button to trigger Cubit data fetch
+                        /// BUTTON
                         GestureDetector(
                           onTap: () {
                             BlocProvider.of<AppCubits>(context).getData();
+                            Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                builder: (_) => const AppCubitLogics(),
+                              ),
+                            );
                           },
                           child: ResponsiveButton(isResponsive: true),
                         ),
                       ],
                     ),
+
+                    /// RIGHT DOTS
                     Column(
                       children: List.generate(3, (indexDots) {
                         return Container(

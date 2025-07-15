@@ -28,7 +28,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
     Icons.person,
   ];
 
-  final List<String> labels = ["Home", "Bar", "Search", "Profile"];
+  final List<String> labels = ["Home", "Popular", "Search", "Profile"];
 
   void onTap(int index) {
     setState(() {
@@ -42,19 +42,45 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
       backgroundColor: Colors.white,
       body: pages[currentIndex],
 
-      // Rounded, elevated, smooth bottom nav bar
+      /* --------------------Rounded, elevated, smooth BOTTOM NAVIGATION--------------------*/
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
-        child: PhysicalModel(
-          color: Colors.white,
-          elevation: 10,
-          borderRadius: BorderRadius.circular(30),
-          shadowColor: Colors.black.withOpacity(0.25),
+        padding: const EdgeInsets.only(left: 20, right: 20, bottom: 30),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(60),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.03),
+                blurRadius: 25,
+                spreadRadius: 1,
+                offset: const Offset(0, 5), // bottom
+              ),
+              BoxShadow(
+                color: Colors.black.withOpacity(0.03),
+                blurRadius: 25,
+                spreadRadius: 1,
+                offset: const Offset(0, -5), // top
+              ),
+              BoxShadow(
+                color: Colors.black.withOpacity(0.03),
+                blurRadius: 15,
+                spreadRadius: 1,
+                offset: const Offset(-5, 0), // left
+              ),
+              BoxShadow(
+                color: Colors.black.withOpacity(0.03),
+                blurRadius: 15,
+                spreadRadius: 1,
+                offset: const Offset(5, 0), // right
+              ),
+            ],
+          ),
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(30),
+            borderRadius: BorderRadius.circular(60),
             child: Container(
               color: Colors.white,
-              padding: const EdgeInsets.symmetric(vertical: 10),
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 6),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: List.generate(icons.length, (index) {
@@ -65,14 +91,14 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
                     child: AnimatedContainer(
                       duration: const Duration(milliseconds: 300),
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
+                        horizontal: 18,
                         vertical: 8,
                       ),
                       decoration: BoxDecoration(
                         color: isSelected
                             ? Colors.grey[800]
                             : Colors.transparent,
-                        borderRadius: BorderRadius.circular(30),
+                        borderRadius: BorderRadius.circular(20),
                       ),
                       child: AnimatedSize(
                         duration: const Duration(milliseconds: 300),
@@ -112,6 +138,8 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
           ),
         ),
       ),
+
+      /*-------------------------------------------------------------------------------- */
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:fair_travel/model/data_model.dart';
 import 'package:fair_travel/widgets/app_buttons.dart';
 import 'package:fair_travel/widgets/responsive_button.dart';
 import 'package:flutter/material.dart';
@@ -10,21 +11,22 @@ import 'package:fair_travel/cubit/app_cubit.dart';
 import 'package:fair_travel/cubit/app_cubit_state.dart';
 
 class DetailPage extends StatelessWidget {
-  const DetailPage({super.key});
+  final DataModel place;
+  final List<DataModel> favorites;
+
+  const DetailPage({super.key, required this.place, required this.favorites});
 
   @override
   Widget build(BuildContext context) {
-    final place =
-        (BlocProvider.of<AppCubits>(context).state as DetailState).place;
     int rating = 4;
     int selectedPeople = -1;
+    bool isFavorite = favorites.contains(place);
 
     return Scaffold(
       body: StatefulBuilder(
         builder: (context, setState) {
           return Stack(
             children: [
-              // Background image
               Positioned(
                 left: 0,
                 right: 0,
@@ -40,8 +42,6 @@ class DetailPage extends StatelessWidget {
                   ),
                 ),
               ),
-
-              // Back button
               Positioned(
                 left: 20,
                 top: 50,
@@ -53,8 +53,6 @@ class DetailPage extends StatelessWidget {
                   color: Colors.white,
                 ),
               ),
-
-              // Info container
               Positioned(
                 top: 320,
                 child: Container(
@@ -74,7 +72,6 @@ class DetailPage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Title & Price
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -86,8 +83,6 @@ class DetailPage extends StatelessWidget {
                         ],
                       ),
                       10.heightBox,
-
-                      // Location
                       Row(
                         children: [
                           const Icon(
@@ -96,14 +91,12 @@ class DetailPage extends StatelessWidget {
                           ),
                           10.widthBox,
                           AppText(
-                            text: place.Location,
+                            text: place.location,
                             color: AppColors.textColor1,
                           ),
                         ],
                       ),
                       20.heightBox,
-
-                      // Stars
                       Row(
                         children: [
                           Wrap(
@@ -124,8 +117,6 @@ class DetailPage extends StatelessWidget {
                         ],
                       ),
                       25.heightBox,
-
-                      // People selection
                       AppLargeText(
                         text: "People",
                         color: Colors.black.withOpacity(0.8),
@@ -165,10 +156,7 @@ class DetailPage extends StatelessWidget {
                           );
                         }),
                       ),
-
                       20.heightBox,
-
-                      // Description
                       const AppLargeText(
                         text: "Description",
                         size: 20,
@@ -180,8 +168,6 @@ class DetailPage extends StatelessWidget {
                   ),
                 ),
               ),
-
-              // Bottom buttons
               Positioned(
                 bottom: 30,
                 left: 20,
@@ -189,13 +175,22 @@ class DetailPage extends StatelessWidget {
                 height: 60,
                 child: Row(
                   children: [
-                    const AppButtons(
-                      color: AppColors.textColor2,
-                      backgroundColor: Colors.white,
-                      size: 60,
-                      borderColor: AppColors.textColor2,
-                      isIcon: true,
-                      icon: Icons.favorite_border,
+                    InkWell(
+                      onTap: () {
+                        BlocProvider.of<AppCubits>(
+                          context,
+                        ).toggleFavorite(place);
+                      },
+                      child: AppButtons(
+                        color: isFavorite ? Colors.red : AppColors.textColor2,
+                        backgroundColor: Colors.white,
+                        size: 60,
+                        borderColor: AppColors.textColor2,
+                        isIcon: true,
+                        icon: isFavorite
+                            ? Icons.favorite
+                            : Icons.favorite_border,
+                      ),
                     ),
                     20.widthBox,
                     const Expanded(child: ResponsiveButton(isResponsive: true)),

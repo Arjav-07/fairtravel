@@ -19,11 +19,11 @@ class AppCubitLogics extends StatelessWidget {
           } else if (state is LoadedState) {
             return const MainPage();
           } else if (state is DetailState) {
-            return const DetailPage();
+            return DetailPage(place: state.place, favorites: state.favorites);
           } else if (state is LoadingState) {
             return const Center(child: CircularProgressIndicator());
           } else if (state is ErrorState) {
-            return Center(child: Text("Error: ${state.places}"));
+            return Center(child: Text("Error: ${state.message}"));
           } else {
             return const Center(child: Text("Unknown state"));
           }

@@ -14,24 +14,29 @@ class LoadingState extends CubitStates {}
 
 class LoadedState extends CubitStates {
   final List<DataModel> places;
-  LoadedState(this.places);
+  final List<DataModel> favorites;
+
+  LoadedState(this.places, this.favorites);
 
   @override
-  List<Object> get props => [places];
+  List<Object?> get props => [places, favorites];
 }
 
 class DetailState extends CubitStates {
   final DataModel place;
-  DetailState(this.place);
+  final List<DataModel> favorites;
+
+  DetailState(this.place, this.favorites);
 
   @override
-  List<Object> get props => [place];
+  List<Object?> get props => [place, favorites];
 }
 
 class ErrorState extends CubitStates {
-  final String places;
-  ErrorState(this.places);
+  final String message;
+
+  ErrorState(this.message);
 
   @override
-  List<Object> get props => [places];
+  List<Object?> get props => [message];
 }
